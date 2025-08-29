@@ -10,6 +10,8 @@ interface BookTicketRequest {
 }
 
 router.post('/book-ticket', async (req: Request, res: Response) => {
+ //Purchase a specific seat number in cinema C. If the seat is already purchased, return an error, otherwise return the seat.
+ // assuming that "C" is the cinema id, and this id is used for booking the ticket
   try {
     const { cinemaId, seatNumber }: BookTicketRequest = req.body;
 

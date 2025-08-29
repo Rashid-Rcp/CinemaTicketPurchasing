@@ -5,6 +5,8 @@ const router = Router();
 const prisma = new PrismaClient();
 
 router.post('/book-consecutive', async (req: Request, res: Response) => {
+    //Purchase the first two free consecutive seats in cinema C. If there are no two consecutive seats available, return an error, otherwise return the list of seats.
+    // assuming that "C" is the cinema id, and this id is used for booking the ticket
   try {
     const { cinemaId } = req.body;
 

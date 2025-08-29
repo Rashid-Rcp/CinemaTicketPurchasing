@@ -10,6 +10,12 @@ interface CreateCinemaRequest {
 }
 
 router.post('/cinema', async (req: Request, res: Response) => {
+//Create a cinema with N seats. Returns the cinema ID.
+// assume that the cinema ID is the unique id geneted while creating the cinema
+// and this id is used for booking the ticket
+// as the ID is using for booking the ticket, the cinema name is not required to be unique
+
+
   try {
     const { name, numberOfSeats }: CreateCinemaRequest = req.body;
 
@@ -59,6 +65,8 @@ router.post('/cinema', async (req: Request, res: Response) => {
       name: result.name,
       numberOfSeats: result.numberOfSeats
     });
+
+    // after successfull creation, the api will return the cinema id, this cinema id used for booking the ticket
 
   } catch (error) {
     console.error('Error creating cinema:', error);
