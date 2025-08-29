@@ -9,3 +9,23 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+model Cinema {
+  id            String @id @default(uuid()) @db.Uuid
+  numberOfSeats Int
+  seats         Seat[]
+
+  @@map("cinemas")
+}
+
+model Seat {
+  id          String   @id @default(uuid()) @db.Uuid
+  cinemaId    String   @db.Uuid
+  cinema      Cinema   @relation(fields: [cinemaId], references: [id])
+  seatNumber  Int
+  status      String
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@unique([cinemaId, seatNumber])
+  @@map("seats")
+}
