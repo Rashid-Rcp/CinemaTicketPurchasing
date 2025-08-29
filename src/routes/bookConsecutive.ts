@@ -63,15 +63,20 @@ router.post('/book-consecutive', async (req: Request, res: Response) => {
       });
     }
 
-    // Purchase both seats
-    const updatedSeats = await Promise.all(
-      consecutiveSeats.map(seat =>
-        prisma.seat.update({
+    // Purchase both seats using Prisma transaction
+    const updatedSeats = await prisma.$transaction(async (tx) => {
+      const updatedSeats = [];
+      
+      for (const seat of consecutiveSeats) {
+        const updatedSeat = await tx.seat.update({
           where: { id: seat.id },
           data: { status: 'purchased' }
-        })
-      )
-    );
+        });
+        updatedSeats.push(updatedSeat);
+      }
+      
+      return updatedSeats;
+    });
 
     res.status(200).json({
       message: 'Two consecutive seats purchased successfully',
