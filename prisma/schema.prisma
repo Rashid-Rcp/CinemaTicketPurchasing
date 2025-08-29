@@ -12,8 +12,8 @@ datasource db {
 
 model Cinema {
   id            String @id @default(uuid()) @db.Uuid
+  name          String
   numberOfSeats Int
-  name  String
   seats         Seat[]
 
   @@map("cinemas")
