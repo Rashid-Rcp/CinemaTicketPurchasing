@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import createCinemaRouter from './routes/createCinema';
 import bookTicketRouter from './routes/bookTicket';
+import bookConsecutiveRouter from './routes/bookConsecutive';
 
 // Load environment variables
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(express.json());
 // Routes
 app.use('/api', createCinemaRouter);
 app.use('/api', bookTicketRouter);
+app.use('/api', bookConsecutiveRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World');
